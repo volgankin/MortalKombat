@@ -45,8 +45,8 @@ function createPlayer(playerClass, playerInfo) {
     player.appendChild(progressbar);
     player.appendChild(character);
 
-    const arenas = document.querySelector('.arenas');
-    arenas.appendChild(player);
+    const $arenas = document.querySelector('.arenas');
+    $arenas.appendChild(player);
 };
 
 createPlayer('player1', player1);
