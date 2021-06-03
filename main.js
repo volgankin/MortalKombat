@@ -19,14 +19,14 @@ const player2 = {
 };
 
 function createTag(tag, tagClass) {
-    const element = document.createElement(tag);
-    element.classList.add(tagClass);
-    return element;
+    const $element = document.createElement(tag);
+    $element.classList.add(tagClass);
+    return $element;
 };
 
 function createPlayer(playerClass, playerInfo) {
-    const img = document.createElement('img');
-    img.src = playerInfo.img;
+    const $img = document.createElement('img');
+    $img.src = playerInfo.img;
     
     const name = createTag('div', 'name');
     name.innerText = playerInfo.name;
@@ -35,7 +35,7 @@ function createPlayer(playerClass, playerInfo) {
     life.style.width = playerInfo.hp + '%';
     
     const character = createTag('div', 'character');
-    character.appendChild(img);
+    character.appendChild($img);
     
     const progressbar = createTag('div', 'progressbar');
     progressbar.appendChild(life);
@@ -47,8 +47,6 @@ function createPlayer(playerClass, playerInfo) {
 
     const arenas = document.querySelector('.arenas');
     arenas.appendChild(player);
-
-    console.log(arenas);
 };
 
 createPlayer('player1', player1);
