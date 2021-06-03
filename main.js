@@ -25,6 +25,8 @@ function createTag(tag, tagClass) {
 };
 
 function createPlayer(playerClass, playerInfo) {
+    const $arenas = document.querySelector('.arenas');
+
     const $img = document.createElement('img');
     $img.src = playerInfo.img;
     
@@ -45,7 +47,6 @@ function createPlayer(playerClass, playerInfo) {
     player.appendChild(progressbar);
     player.appendChild(character);
 
-    const $arenas = document.querySelector('.arenas');
     $arenas.appendChild(player);
 };
 
