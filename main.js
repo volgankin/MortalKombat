@@ -3,7 +3,7 @@ const $randomButton = document.querySelector('.button');
 
 const player1 = {
     player: 1,
-    name: 'Китана',
+    name: 'Kitana',
     hp: 100,
     wn: 20,
     img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
@@ -15,7 +15,7 @@ const player1 = {
 
 const player2 = {
     player: 2,
-    name: 'Соня',
+    name: 'Sonya',
     hp: 100,
     wn: 20,
     img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
@@ -57,7 +57,6 @@ function createPlayer(playerInfo) {
 
 function getLoseHP (maxWeakness) {
     let loseHP = Math.ceil(Math.random() * maxWeakness)
-    console.log(loseHP);
 
     return loseHP;
 };
