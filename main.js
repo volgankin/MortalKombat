@@ -64,14 +64,14 @@ function getLoseHP (maxWeakness) {
 function changeHP (player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
     player.hp -= getLoseHP(player.wn);
-    $playerLife.style.width = player.hp + '%';
 
     if (player.hp <= 0) {
         player.hp = 0;
-        $playerLife.style.width = player.hp + '%';
         $randomButton.disabled = true;
         $randomButton.style.backgroundColor = 'grey';
     }
+
+    $playerLife.style.width = player.hp + '%';
 
     return player.hp;
 };
@@ -95,9 +95,12 @@ function getWinner (hpPlayer1, hpPlayer2) {
 
 $randomButton.addEventListener('click', function () {
     const letHPPlayer1 = changeHP(player1);
+    let letHPPlayer2;
+
     if (letHPPlayer1 > 0) {
-        const letHPPlayer2 = changeHP(player2);
+        letHPPlayer2 = changeHP(player2);
     }
+
     getWinner(letHPPlayer1, letHPPlayer2);
 });
 
