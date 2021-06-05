@@ -5,7 +5,7 @@ const player1 = {
     player: 1,
     name: 'Китана',
     hp: 100,
-    ks: 20,
+    wn: 20,
     img: 'http://reactmarathon-api.herokuapp.com/assets/kitana.gif',
     weapon: ['Боевые веера'],
     attack: function () {
@@ -17,7 +17,7 @@ const player2 = {
     player: 2,
     name: 'Соня',
     hp: 100,
-    ks: 25,
+    wn: 20,
     img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
     weapon: ['Бамбуковые палки'],
     attack: function () {
@@ -55,15 +55,16 @@ function createPlayer(playerInfo) {
     return player;
 };
 
-function getLoseHP (maxKickStrong) {
-    let loseHP = Math.ceil(Math.random() * maxKickStrong)
+function getLoseHP (maxWeakness) {
+    let loseHP = Math.ceil(Math.random() * maxWeakness)
+    console.log(loseHP);
 
     return loseHP;
 };
 
 function changeHP (player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    player.hp -= getLoseHP(player.ks);
+    player.hp -= getLoseHP(player.wn);
     $playerLife.style.width = player.hp + '%';
 
     if (player.hp <= 0) {
