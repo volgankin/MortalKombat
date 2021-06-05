@@ -68,6 +68,7 @@ function changeHP (player) {
 
     if (player.hp <= 0) {
         player.hp = 0;
+        $playerLife.style.width = player.hp + '%';
         $randomButton.disabled = true;
         $randomButton.style.backgroundColor = 'grey';
     }
@@ -94,8 +95,9 @@ function getWinner (hpPlayer1, hpPlayer2) {
 
 $randomButton.addEventListener('click', function () {
     const letHPPlayer1 = changeHP(player1);
-    const letHPPlayer2 = changeHP(player2);
-
+    if (letHPPlayer1 > 0) {
+        const letHPPlayer2 = changeHP(player2);
+    }
     getWinner(letHPPlayer1, letHPPlayer2);
 });
 
