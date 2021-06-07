@@ -6,6 +6,7 @@ function changeHP (hp) {
 
     if (this.hp <= 0) {
         this.hp = 0;
+        createReloadButton();
     }
 
     return this.hp;
@@ -99,12 +100,17 @@ function playerWins (name) {
 
 function createReloadButton () {
     const reloadWrap = createTag('div', 'reloadWrap');
-    const resetButton = createTag('button');
+    const resetButton = createTag('button', 'button');
+    const $control = document.querySelector('.control');
 
     resetButton.innerText = 'Reset';
-    reloadWrap.appendChild(resetButton);
 
-    return reloadWrap;
+    reloadWrap.appendChild(resetButton);
+    $arenas.appendChild(reloadWrap);
+
+    resetButton.addEventListener('click', function () {
+        window.location.reload();
+    });
 };
 
 $randomButton.addEventListener('click', function () {
@@ -131,4 +137,3 @@ $randomButton.addEventListener('click', function () {
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
-$arenas.appendChild(createReloadButton());
