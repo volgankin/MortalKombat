@@ -12,13 +12,12 @@ function changeHP (hp) {
     return this.hp;
 };
 
-function elHP () {
-    return document.querySelector('.player');
+function elHP (player) {
+    return document.querySelector('.player' + player + ' .life');
 };
 
 function renderHP () {
-    const $playerLife = document.querySelector('.player' + this.player + ' .life');
-    $playerLife.style.width = this.hp + '%';
+    elHP(this.player).style.width = this.hp + '%';
 };
 
 
@@ -32,7 +31,6 @@ const player1 = {
         console.log(this.name + ' Fight...');
     },
     changeHP: changeHP,
-    elHP: elHP,
     renderHP: renderHP
 };
 
@@ -46,7 +44,6 @@ const player2 = {
         console.log(this.name + ' Fight...');
     },
     changeHP: changeHP,
-    elHP: elHP,
     renderHP: renderHP
 };
 
@@ -116,8 +113,6 @@ function createReloadButton () {
 $randomButton.addEventListener('click', function () {
     player1.changeHP(getRandom(20));
     player2.changeHP(getRandom(20));
-    player1.elHP();
-    player2.elHP();
     player1.renderHP();
     player2.renderHP();
 
