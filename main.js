@@ -6,18 +6,17 @@ function changeHP (hp) {
 
     if (this.hp <= 0) {
         this.hp = 0;
-        createReloadButton();
     }
 
     return this.hp;
 };
 
-function elHP (player) {
-    return document.querySelector('.player' + player + ' .life');
+function elHP () {
+    return document.querySelector('.player' + this.player + ' .life');
 };
 
 function renderHP () {
-    elHP(this.player).style.width = this.hp + '%';
+    return this.elHP().style.width = this.hp + '%';
 };
 
 
@@ -31,6 +30,7 @@ const player1 = {
         console.log(this.name + ' Fight...');
     },
     changeHP: changeHP,
+    elHP: elHP,
     renderHP: renderHP
 };
 
@@ -44,6 +44,7 @@ const player2 = {
         console.log(this.name + ' Fight...');
     },
     changeHP: changeHP,
+    elHP: elHP,
     renderHP: renderHP
 };
 
@@ -119,6 +120,7 @@ $randomButton.addEventListener('click', function () {
     if (player1.hp === 0 || player2.hp === 0) {
         $randomButton.disabled = true;
         $randomButton.style.backgroundColor = 'grey';
+        createReloadButton();
     }
 
     if (player1.hp === 0 && player1.hp < player2.hp) {
