@@ -194,7 +194,7 @@ function fight (enemy, player) {
     if (enemy.hit !== player.defence) {
         player2.changeHP(enemy.value);
         player2.renderHP();
-        generateLogs('hit', showTime(), player1, player2);
+        generateLogs('hit', showTime(), player1, player2, enemy.value);
     }  else {
         generateLogs('defence', showTime(), player1, player2);
     }
@@ -202,7 +202,7 @@ function fight (enemy, player) {
     if (player.hit !== enemy.defence) {
         player1.changeHP(player.value);
         player1.renderHP();
-        generateLogs('hit', showTime(), player2, player1);
+        generateLogs('hit', showTime(), player2, player1, player.value);
     } else {
         generateLogs('defence', showTime(), player2, player1);
     }
@@ -232,7 +232,7 @@ function showTime () {
     return date.getHours() + ':' + date.getMinutes();
 };
 
-function generateLogs (type, time, player1, player2) {
+function generateLogs (type, time, player1, player2, value) {
     let text = '';
     let el = '';
 
@@ -249,7 +249,7 @@ function generateLogs (type, time, player1, player2) {
             break;
         case 'hit':
             text = logs[type][getRandom(logs[type].length) - 1].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-            el = `<p>${time} - ${text}</p>`;
+            el = `<p>${time} - ${text} -${value}[${player2.hp}/100]</p>`;
             $chat.insertAdjacentHTML('afterbegin', el);
             break;
         case 'defence':
