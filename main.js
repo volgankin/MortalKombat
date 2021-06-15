@@ -172,13 +172,13 @@ function enemyAttack () {
 function renderMessage () {
     if (player1.hp === 0 && player1.hp < player2.hp) {
         $arenas.appendChild(playerWins(player2.name));
-        generateLogs('end',showTime(), player2, player1);
+        generateLogs('end', player2, player1);
     } else if (player2.hp === 0 && player2.hp < player1.hp) {
         $arenas.appendChild(playerWins(player1.name));
-        generateLogs('end', showTime(), player1, player2);
+        generateLogs('end', player1, player2);
     } else if (player1.hp === 0 && player2.hp === 0) {
         $arenas.appendChild(playerWins());
-        generateLogs('draw', showTime());
+        generateLogs('draw');
     }
 };
 
@@ -194,17 +194,17 @@ function fight (enemy, player) {
     if (enemy.hit !== player.defence) {
         player2.changeHP(enemy.value);
         player2.renderHP();
-        generateLogs('hit', showTime(), player1, player2, enemy.value);
+        generateLogs('hit', player1, player2, enemy.value);
     }  else {
-        generateLogs('defence', showTime(), player1, player2);
+        generateLogs('defence', player1, player2);
     }
 
     if (player.hit !== enemy.defence) {
         player1.changeHP(player.value);
         player1.renderHP();
-        generateLogs('hit', showTime(), player2, player1, player.value);
+        generateLogs('hit', player2, player1, player.value);
     } else {
-        generateLogs('defence', showTime(), player2, player1);
+        generateLogs('defence', player2, player1);
     }
 };
 
@@ -227,12 +227,9 @@ function playerAttack () {
     return attack;
 };
 
-function showTime () {
+function generateLogs (type, player1, player2, value) {
     const date = new Date();
-    return date.getHours() + ':' + date.getMinutes();
-};
-
-function generateLogs (type, time, player1, player2, value) {
+    const time = date.getHours() + ':' + date.getMinutes();
     let text = '';
     let el = '';
 
@@ -240,32 +237,31 @@ function generateLogs (type, time, player1, player2, value) {
         case 'start':
             text = logs[type].replace('[time]', time).replace('[player1]', player1.name).replace('[player2]', player2.name);
             el = `<p>${text}</p>`;
-            $chat.insertAdjacentHTML('afterbegin', el);
             break;
         case 'end':
             text = logs[type][getRandom(logs[type].length) - 1].replace('[time]', time).replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
             el = `<p>${text}</p>`;
-            $chat.insertAdjacentHTML('afterbegin', el);
             break;
         case 'hit':
             text = logs[type][getRandom(logs[type].length) - 1].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-            el = `<p>${time} - ${text} -${value}[${player2.hp}/100]</p>`;
-            $chat.insertAdjacentHTML('afterbegin', el);
+            el = `<p>${time} - ${text} -${value} [${player2.hp}/100]</p>`;
             break;
         case 'defence':
             text = logs[type][getRandom(logs[type].length) - 1].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
             el = `<p>${time} - ${text}</p>`;
-            $chat.insertAdjacentHTML('afterbegin', el);
             break;
         case 'draw':
             text = logs[type];
             el = `<p>${text}</p>`;
-            $chat.insertAdjacentHTML('afterbegin', el);
+            break;
+        default:
             break;
     }
+
+    $chat.insertAdjacentHTML('afterbegin', el);
 };
 
-generateLogs('start', showTime(), player1, player2);
+generateLogs('start', player1, player2);
 
 $formFight.addEventListener('submit', function(e) {
     e.preventDefault();
