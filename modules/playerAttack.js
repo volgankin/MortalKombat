@@ -1,3 +1,7 @@
+import { getRandom } from './getRandom.js';
+import { HIT } from './const.js';
+import { $formFight } from './const.js';
+
 function playerAttack () {
     const attack = {};
 
@@ -16,3 +20,5 @@ function playerAttack () {
 
     return attack;
 };
+
+export default playerAttack;

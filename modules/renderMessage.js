@@ -1,4 +1,7 @@
-import { player1 } from './player1.js';
+import { player1,  player2} from './players.js';
+import { $arenas } from './const.js';
+import playerWins from './playerWins.js';
+import generateLogs from './generateLogs.js';
 
 function renderMessage () {
     if (player1.hp === 0 && player1.hp < player2.hp) {

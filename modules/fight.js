@@ -1,3 +1,6 @@
+import { player1,  player2} from './players.js';
+import generateLogs from './generateLogs.js';
+
 function fight (enemy, player) {
     if (enemy.hit !== player.defence) {
         player2.changeHP(enemy.value);
@@ -15,3 +18,5 @@ function fight (enemy, player) {
         generateLogs('defence', player2, player1);
     }
 };
+
+export default fight;
