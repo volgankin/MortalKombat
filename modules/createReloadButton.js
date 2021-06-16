@@ -1,5 +1,5 @@
 import createElement from './createElement.js';
-import {$arenas} from './const.js';
+import { $arenas } from './const.js';
 
 function createReloadButton() {
     const $reloadWrap = createElement('div', 'reloadWrap');

@@ -1,4 +1,4 @@
-import { player1,  player2} from './players.js';
+import { player1,  player2 } from './players.js';
 import generateLogs from './generateLogs.js';
 
 function fight (enemy, player) {

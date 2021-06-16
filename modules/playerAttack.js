@@ -15,7 +15,7 @@ function playerAttack () {
             attack.defence = item.value;
         }
 
-        //item.checked = false;
+        item.checked = false;
     }
 
     return attack;

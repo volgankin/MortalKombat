@@ -1,13 +1,12 @@
-import elHP from './elHP.js';
-import attack from './elHP.js';
-
 export const player1 = {
     player: 1,
     name: 'Kitana',
     hp: 100,
     img: '../img/goblin.gif'/*'http://reactmarathon-api.herokuapp.com/assets/kitana.gif'*/,
     weapon: ['Боевые веера'],
-    elHP,
+    elHP: function () {
+        return document.querySelector('.player' + this.player + ' .life');
+    },
     changeHP: function (hp) {
             this.hp -= hp;
 
@@ -18,7 +17,9 @@ export const player1 = {
     renderHP: function () {
         return this.elHP().style.width = this.hp + '%';
     },
-    attack,
+    attack: function () {
+        console.log(this.name + ' ' + ' Fight...');
+    },
 };
 
 export const player2 = {
@@ -27,7 +28,9 @@ export const player2 = {
     hp: 100,
     img: '../img/ork.gif'/*'http://reactmarathon-api.herokuapp.com/assets/sonya.gif'*/,
     weapon: ['Бамбуковые палки'],
-    elHP,
+    elHP: function () {
+        return document.querySelector('.player' + this.player + ' .life');
+    },
     changeHP: function (hp) {
             this.hp -= hp;
 
@@ -38,5 +41,7 @@ export const player2 = {
     renderHP: function () {
         return this.elHP().style.width = this.hp + '%';
     },
-    attack,
+    attack: function () {
+        console.log(this.name + ' ' + ' Fight...');
+    },
 };
