@@ -1,6 +1,44 @@
-import { player1, player2 } from './../main.js';
-import { HIT, ATTACK, LOGS, $arenas, $randomButton, $formFight, $chat } from './../constants/index.js'
-import { getTime, getRandom, createElement } from './../utils/index.js'
+import { HIT, ATTACK, LOGS, $arenas, $randomButton, $formFight, $chat } from '../constants/index.js'
+import { getTime, getRandom, createElement } from '../utils/index.js'
+import Player from '../Player/index.js';
+
+class Game {
+    start = () => {
+        player1.createPlayer();
+        player2.createPlayer();
+
+        generateLogs('start', player1, player2);
+    }
+}
+
+export default Game;
+
+export const player1 = new Player({
+    player: 1,
+    name: 'Kitana',
+    hp: 100,
+    img: '../img/kitana.gif',
+    rootSelector: 'arenas',
+});
+
+export const player2 = new Player({
+    player: 2,
+    name: 'Sonya',
+    hp: 100,
+    img: '../img/sonya.gif',
+    rootSelector: 'arenas',
+});
+
+$formFight.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const enemy = enemyAttack();
+    const player = playerAttack();
+
+    fight(enemy, player);
+    fightButtonOff();
+    renderMessage();
+});
 
 function createReloadButton() {
     const $reloadWrap = createElement('div', 'reloadWrap');
