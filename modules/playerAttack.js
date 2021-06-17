@@ -1,6 +1,5 @@
 import { getRandom } from './getRandom.js';
-import { HIT } from './const.js';
-import { $formFight } from './const.js';
+import { $formFight, HIT } from './const.js';
 
 function playerAttack () {
     const attack = {};
@@ -15,7 +14,7 @@ function playerAttack () {
             attack.defence = item.value;
         }
 
-        item.checked = false;
+        //item.checked = false;
     }
 
     return attack;

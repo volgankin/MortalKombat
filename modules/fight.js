@@ -2,21 +2,21 @@ import { player1,  player2 } from './players.js';
 import generateLogs from './generateLogs.js';
 
 function fight (enemy, player) {
-    const { value: vEnemy, hit: hitEnemy, defence: defEnemy } = enemy;
-    const { value: vPlayer, hit: hitPlayer, defence: defPlayer } = player;
+    const { value: valueEnemy, hit: hitEnemy, defence: defenceEnemy } = enemy;
+    const { value, hit, defence } = player;
 
-    if (hitEnemy !== defPlayer) {
-        player2.changeHP(vEnemy);
+    if (hitEnemy !== defence) {
+        player2.changeHP(valueEnemy);
         player2.renderHP();
-        generateLogs('hit', player1, player2, vEnemy);
+        generateLogs('hit', player1, player2, valueEnemy);
     }  else {
         generateLogs('defence', player1, player2);
     }
 
-    if (hitPlayer !== defEnemy) {
-        player1.changeHP(vPlayer);
+    if (hit !== defenceEnemy) {
+        player1.changeHP(value);
         player1.renderHP();
-        generateLogs('hit', player2, player1, vPlayer);
+        generateLogs('hit', player2, player1, value);
     } else {
         generateLogs('defence', player2, player1);
     }

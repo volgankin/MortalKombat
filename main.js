@@ -9,10 +9,14 @@ import fight from './modules/fight.js';
 import generateLogs from './modules/generateLogs.js';
 import fightButtonOff from './modules/fightButtonOff.js';
 
-$arenas.appendChild(createPlayer(player1));
-$arenas.appendChild(createPlayer(player2));
+function init () {
+    $arenas.appendChild(createPlayer(player1));
+    $arenas.appendChild(createPlayer(player2));
 
-generateLogs('start', player1, player2);
+    generateLogs('start', player1, player2);
+};
+
+init();
 
 $formFight.addEventListener('submit', function(e) {
     e.preventDefault();
