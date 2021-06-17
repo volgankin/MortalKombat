@@ -1,4 +1,6 @@
-import { player1, player2 } from './../main.js'
+import { player1, player2 } from './../main.js';
+import { HIT, ATTACK, LOGS, $arenas, $randomButton, $formFight, $chat } from './../constants/index.js'
+import { getTime, getRandom, createElement } from './../utils/index.js'
 
 function createReloadButton() {
     const $reloadWrap = createElement('div', 'reloadWrap');
@@ -55,7 +57,8 @@ export const fightButtonOff = () => {
 };
 
 export const generateLogs = (type, { name } = {}, { name: namePlayer2, hp } = {}, value) => {
-    let text = getTextLog(type, name, namePlayer2, value);
+
+    let text = getTextLog(type, name, namePlayer2);
 
     switch (type) {
         case 'hit':
