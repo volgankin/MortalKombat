@@ -1,17 +1,27 @@
-import { player1,  player2} from './modules/players.js';
-import { $arenas, $formFight } from './modules/const.js';
+import { renderMessage, enemyAttack, playerAttack, fight, generateLogs, fightButtonOff } from './game/index.js';
+import { $formFight } from './constants/index.js';
 
-import createPlayer from './modules/createPlayer.js';
-import renderMessage from './modules/renderMessage.js';
-import enemyAttack from './modules/enemyAttack.js';
-import playerAttack from './modules/playerAttack.js';
-import fight from './modules/fight.js';
-import generateLogs from './modules/generateLogs.js';
-import fightButtonOff from './modules/fightButtonOff.js';
+import Player from './Player/index.js';
+
+export const player1 = new Player({
+    player: 1,
+    name: 'Kitana',
+    hp: 100,
+    img: '../img/kitana.gif',
+    rootSelector: 'arenas',
+});
+
+export const player2 = new Player({
+    player: 2,
+    name: 'Sonya',
+    hp: 100,
+    img: '../img/sonya.gif',
+    rootSelector: 'arenas',
+});
 
 function init () {
-    $arenas.appendChild(createPlayer(player1));
-    $arenas.appendChild(createPlayer(player2));
+    player1.createPlayer();
+    player2.createPlayer();
 
     generateLogs('start', player1, player2);
 };
