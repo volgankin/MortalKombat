@@ -20,21 +20,22 @@ class Game {
             rootSelector: 'arenas',
         });
     }
+
     start = () => {
         this.player1.createPlayer();
         this.player2.createPlayer();
 
-        generateLogs('start', this.player1, this.player2);
+        this.generateLogs('start', this.player1, this.player2);
 
-        $formFight.addEventListener('submit', function(e) {
+        $formFight.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const enemy = enemyAttack();
-            const player = playerAttack();
+            const enemy = this.enemyAttack();
+            const player = this.playerAttack();
 
-            fight(enemy, player);
-            fightButtonOff();
-            renderMessage();
+            this.fight(enemy, player);
+            this.fightButtonOff();
+            this.renderMessage();
         });
     }
 
@@ -50,7 +51,7 @@ class Game {
 
         $reloadWrap.appendChild($resetButton);
         $arenas.appendChild($reloadWrap);
-    };
+    }
 
     enemyAttack = () => {
         const hit = ATTACK[getRandom(3) - 1];
@@ -59,43 +60,42 @@ class Game {
         return {
             value: getRandom(HIT[hit]),
             hit,
-            defence,
+            defence
         }
-    };
+    }
 
     fight = (enemy, player) => {
         const { value: valueEnemy, hit: hitEnemy, defence: defenceEnemy } = enemy;
         const { value, hit, defence } = player;
 
         if (hitEnemy !== defence) {
-            player2.changeHP(valueEnemy);
-            player2.renderHP();
-            generateLogs('hit', player1, player2, valueEnemy);
+            this.player2.changeHP(valueEnemy);
+            this.player2.renderHP();
+            this.generateLogs('hit', this.player1, this.player2, valueEnemy);
         }  else {
-            generateLogs('defence', player1, player2);
+            this.generateLogs('defence', this.player1, this.player2);
         }
 
         if (hit !== defenceEnemy) {
-            player1.changeHP(value);
-            player1.renderHP();
-            generateLogs('hit', player2, player1, value);
+            this.player1.changeHP(value);
+            this.player1.renderHP();
+            this.generateLogs('hit', this.player2, this.player1, value);
         } else {
-            generateLogs('defence', player2, player1);
+            this.generateLogs('defence', this.player2, this.player1);
         }
-    };
+    }
 
     fightButtonOff = () => {
-        if (player1.hp === 0 || player2.hp === 0) {
+        if (this.player1.hp === 0 || this.player2.hp === 0) {
             $randomButton.disabled = true;
             $randomButton.style.backgroundColor = 'grey';
-            createReloadButton();
+            this.createReloadButton();
         }
-    };
+    }
 
     generateLogs = (type, { name } = {}, { name: namePlayer2, hp } = {}, value) => {
-        console.log('всё ок');
-        let text = getTextLog(type, name, namePlayer2);
 
+        let text = this.getTextLog(type, name, namePlayer2);
         switch (type) {
             case 'hit':
                 text = `<p>${getTime()} - ${text} -${value} [${hp}/100]</p>`;
@@ -109,7 +109,7 @@ class Game {
 
         const el = `<p>${text}</p>`;
         $chat.insertAdjacentHTML('afterbegin', el);
-    };
+    }
 
     getTextLog = (type, namePlayer1, namePlayer2) => {
         switch (type) {
@@ -134,7 +134,7 @@ class Game {
             case 'draw':
                 return LOGS[type];
         }
-    };
+    }
 
     playerAttack = () => {
         const attack = {};
@@ -149,11 +149,11 @@ class Game {
                 attack.defence = item.value;
             }
 
-            //item.checked = false;
+            item.checked = false;
         }
 
         return attack;
-    };
+    }
 
     playerWins = (name) => {
         const $winsTitle = createElement('div', 'winsTitle');
@@ -165,20 +165,20 @@ class Game {
         }
 
         return $winsTitle;
-    };
+    }
 
     renderMessage = () => {
-        if (player1.hp === 0 && player1.hp < player2.hp) {
-            $arenas.appendChild(playerWins(player2.name));
-            generateLogs('end', player2, player1);
-        } else if (player2.hp === 0 && player2.hp < player1.hp) {
-            $arenas.appendChild(playerWins(player1.name));
-            generateLogs('end', player1, player2);
-        } else if (player1.hp === 0 && player2.hp === 0) {
-            $arenas.appendChild(playerWins());
-            generateLogs('draw');
+        if (this.player1.hp === 0 && this.player1.hp < this.player2.hp) {
+            $arenas.appendChild(this.playerWins(this.player2.name));
+            this.generateLogs('end', this.player2, this.player1);
+        } else if (this.player2.hp === 0 && this.player2.hp < this.player1.hp) {
+            $arenas.appendChild(this.playerWins(this.player1.name));
+            this.generateLogs('end', this.player1, this.player2);
+        } else if (this.player1.hp === 0 && this.player2.hp === 0) {
+            $arenas.appendChild(this.playerWins());
+            this.generateLogs('draw');
         }
-    };
+    }
 }
 
 export default Game;
