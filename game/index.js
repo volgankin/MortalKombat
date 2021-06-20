@@ -1,31 +1,35 @@
 import { HIT, ATTACK, LOGS, $arenas, $randomButton, $formFight, $chat } from '../constants/index.js'
 import { getTime, getRandom, createElement } from '../utils/index.js'
 import Player from '../Player/index.js';
+import Fetch from '../Fetch/index.js';
+
+const fetch = new Fetch();
+
+let player1;
+let player2;
 
 class Game {
-    constructor () {
-        this.player1 = new Player({
+
+    start = async () => {
+        const p1 = await fetch.getPlayer();
+        const p2 = await fetch.getPlayer();
+
+        player1 = new Player({
+            ...p1,
             player: 1,
-            name: 'Kitana',
-            hp: 100,
-            img: '../img/kitana.gif',
-            rootSelector: 'arenas',
+            rootSelector: 'arenas'
         });
 
-        this.player2 = new Player({
+        player2 = new Player({
+            ...p2,
             player: 2,
-            name: 'Sonya',
-            hp: 100,
-            img: '../img/sonya.gif',
-            rootSelector: 'arenas',
+            rootSelector: 'arenas'
         });
-    }
 
-    start = () => {
-        this.player1.createPlayer();
-        this.player2.createPlayer();
+        player1.createPlayer();
+        player2.createPlayer();
 
-        this.generateLogs('start', this.player1, this.player2);
+        this.generateLogs('start', player1, player2);
 
         $formFight.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -69,24 +73,24 @@ class Game {
         const { value, hit, defence } = player;
 
         if (hitEnemy !== defence) {
-            this.player2.changeHP(valueEnemy);
-            this.player2.renderHP();
-            this.generateLogs('hit', this.player1, this.player2, valueEnemy);
+            player2.changeHP(valueEnemy);
+            player2.renderHP();
+            this.generateLogs('hit', player1, player2, valueEnemy);
         }  else {
-            this.generateLogs('defence', this.player1, this.player2);
+            this.generateLogs('defence', player1, player2);
         }
 
         if (hit !== defenceEnemy) {
-            this.player1.changeHP(value);
-            this.player1.renderHP();
-            this.generateLogs('hit', this.player2, this.player1, value);
+            player1.changeHP(value);
+            player1.renderHP();
+            this.generateLogs('hit', player2, player1, value);
         } else {
-            this.generateLogs('defence', this.player2, this.player1);
+            this.generateLogs('defence', player2, player1);
         }
     }
 
     fightButtonOff = () => {
-        if (this.player1.hp === 0 || this.player2.hp === 0) {
+        if (player1.hp === 0 || player2.hp === 0) {
             $randomButton.disabled = true;
             $randomButton.style.backgroundColor = 'grey';
             this.createReloadButton();
@@ -168,13 +172,13 @@ class Game {
     }
 
     renderMessage = () => {
-        if (this.player1.hp === 0 && this.player1.hp < this.player2.hp) {
-            $arenas.appendChild(this.playerWins(this.player2.name));
-            this.generateLogs('end', this.player2, this.player1);
-        } else if (this.player2.hp === 0 && this.player2.hp < this.player1.hp) {
-            $arenas.appendChild(this.playerWins(this.player1.name));
-            this.generateLogs('end', this.player1, this.player2);
-        } else if (this.player1.hp === 0 && this.player2.hp === 0) {
+        if (player1.hp === 0 && player1.hp < player2.hp) {
+            $arenas.appendChild(this.playerWins(player2.name));
+            this.generateLogs('end', player2, player1);
+        } else if (player2.hp === 0 && player2.hp < player1.hp) {
+            $arenas.appendChild(this.playerWins(player1.name));
+            this.generateLogs('end', player1, player2);
+        } else if (player1.hp === 0 && player2.hp === 0) {
             $arenas.appendChild(this.playerWins());
             this.generateLogs('draw');
         }
