@@ -31,13 +31,13 @@ class Game {
 
 		this.generateLogs('start', player1, player2);
 
-		$formFight.addEventListener('submit', (e) => {
+		$formFight.addEventListener('submit', async (e) => {
 			e.preventDefault();
 
-			const enemy = this.enemyAttack();
-			const player = this.playerAttack();
+			const player = await fetch.getActions();
+			const enemy = await fetch.getActions();
 
-			this.fight(enemy, player);
+			this.fight(enemy.player2, player.player1);
 			this.fightButtonOff();
 			this.renderMessage();
 		});
@@ -186,4 +186,3 @@ class Game {
 }
 
 export default Game;
-
