@@ -8,27 +8,27 @@ const fetch = new Fetch();
 let player1;
 let player2;
 
+const p1 = JSON.parse(localStorage.getItem('player1'));
+const p2 = await fetch.getPlayer();
+
+player1 = new Player({
+	...p1,
+	player: 1,
+	rootSelector: 'arenas'
+});
+
+player2 = new Player({
+	...p2,
+	player: 2,
+	rootSelector: 'arenas'
+});
+
+player1.createPlayer();
+player2.createPlayer();
+
 class Game {
 
 	start = async () => {
-		const p1 = await fetch.getPlayer();
-		const p2 = await fetch.getPlayer();
-
-		player1 = new Player({
-			...p1,
-			player: 1,
-			rootSelector: 'arenas'
-		});
-
-		player2 = new Player({
-			...p2,
-			player: 2,
-			rootSelector: 'arenas'
-		});
-
-		player1.createPlayer();
-		player2.createPlayer();
-
 		this.generateLogs('start', player1, player2);
 
 		$formFight.addEventListener('submit', async (e) => {
@@ -50,7 +50,7 @@ class Game {
 		$resetButton.innerText = 'Reset';
 
 		$resetButton.addEventListener('click', function () {
-			window.location.reload();
+			window.location.pathname = 'index.html';
 		});
 
 		$reloadWrap.appendChild($resetButton);
